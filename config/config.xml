@@ -9,14 +9,14 @@
 		dstport = "27017"
 		dstuser = "root"
 		dstpasswd = "123456"
-		struct_path = "./config/game_struct.xml"
+		struct_path = "./config/db_struct.xml"
 		table_limit = "1000"
 		thread_num = "10"
 	/>
+  <table name="game.idx"/>
 	<table name="game.role"/>
 	<table name="game.mail"/>
-	<table name="game.rank"/>
+  <table name="game.bag"/>
 	<table name="game.guild"/>
-	<table name="game.bag"/>
-	<table name="game.offline"/>
+  <table name="game.rank"/>
 </root>
