@@ -1,0 +1,168 @@
+<root>
+
+<!--自定义类型在此定义-->
+	<Aoi_Info>
+		<arg type="string" name="name"/>
+		<arg type="int32" name="level"/>
+	</Aoi_Info>
+
+	<Position>
+		<arg type="int32" name="x"/>
+		<arg type="int32" name="y"/>
+		<arg type="int32" name="z"/>
+	</Position>
+	
+	<Cid_Info>
+		<arg type="int32" name="gate_cid"/>
+		<arg type="int32" name="player_cid"/>
+	</Cid_Info>
+	
+	<Create_Role_Info>
+    	<arg type="string" name="account"/>
+    	<arg type="string" name="role_name"/>
+    	<arg type="int8" name="gender"/>
+    	<arg type="int8" name="career"/>
+	</Create_Role_Info>
+	
+	<Create_Guild_Info>
+		<arg type="int64" name="guild_id"/>
+		<arg type="string" name="guild_name"/>
+		<arg type="int64" name="chief_id"/>
+	</Create_Guild_Info>
+	
+	<Role_Info>
+    	<arg type="int64" name="role_id" desc="玩家id"/>
+    	<arg type="string" name="role_name" desc="玩家名字"/>
+    	<arg type="string" name="account" desc="玩家账号名"/>
+    	<arg type="int32" name="level" desc="玩家等级"/>
+    	<arg type="int32" name="exp" desc="玩家经验"/>
+    	<arg type="int8" name="gender" desc="0(女)1(男)"/>
+    	<arg type="int8" name="career" desc="职业"/>
+    	<arg type="int32" name="vip_level" desc="vip等级"/>
+    	<arg type="int32" name="vip_exp" desc="vip经验"/>
+    	<arg type="int32" name="charge_gold" desc="总共充值的元宝数"/>
+	</Role_Info>
+
+	<Item_Detail>
+		<arg type="int32" name="item_id"/>
+		<arg type="int32" name="amount"/>
+		<arg type="int8" name="bind_type"/>
+	</Item_Detail>
+	
+	<Mail_Detail>
+		<arg type="bool" name="pickup"/>
+		<arg type="int32" name="mail_id"/>
+		<arg type="int32" name="send_time"/>
+		<arg type="int32" name="sender_type"/>
+		<arg type="int64" name="sender_id"/>
+		<arg type="string" name="sender_name"/>
+		<arg type="string" name="mail_title"/>
+		<arg type="string" name="mail_content"/>
+		<arg type="int32" name="copper"/>
+		<arg type="int32" name="gold"/>
+		<vector type="Item_Detail" name="item_info"/>
+	</Mail_Detail>
+
+	<Guild_Member_Detail>
+		<arg type="int64" name="role_id"/>
+		<arg type="string" name="role_name"/>
+		<arg type="int32" name="level"/>
+	</Guild_Member_Detail>
+	
+	<Rank_Member_Detail>
+		<arg type="int64" name="role_id"/>
+		<arg type="string" name="role_name"/>
+		<arg type="int32" name="value"/>
+	</Rank_Member_Detail>
+	
+	<Master_Player_Info>
+    	<arg type="int64" name="role_id"/>
+    	<arg type="string" name="account"/>
+    	<arg type="string" name="role_name"/>
+    	<arg type="int32" name="level"/>
+    	<arg type="int8" name="gender"/>
+    	<arg type="int8" name="career"/>
+	</Master_Player_Info>
+	
+<!--游戏内需要保存数据库的数据添加head标签,并添加dbname和index属性(需要直接发消息到数据库保存的应赋值给(msg_id) -->
+	<Player_Data>
+		<!--玩家保存到数据库的数据-->
+		<struct type="Game_Player_Info" name="player_info"/>
+		<struct type="Bag_Info" name="bag_info"/>
+		<struct type="Mail_Info" name="mail_info"/>
+	</Player_Data>
+	
+	<Game_Player_Info>
+		<head table_name="role" index_name="role_id"/>
+		<arg type="int64" name="role_id"/>
+		<arg type="string" name="role_name"/>
+		<arg type="string" name="account"/>
+		<arg type="string" name="client_ip"/>
+		<arg type="int32" name="agent_num"/>
+		<arg type="int32" name="server_num"/>
+		<arg type="int32" name="level"/>
+		<arg type="int32" name="exp"/>
+		<arg type="int8" name="gender"/>
+		<arg type="int8" name="career"/>
+		<arg type="int32" name="create_time"/>
+		<arg type="int32" name="login_time"/>
+		<arg type="int32" name="logout_time"/>
+		<arg type="int32" name="vip_level"/>
+		<arg type="int32" name="vip_exp"/>
+		<arg type="int32" name="charge_gold"/>
+		<arg type="int64" name="guild_id"/>
+		<arg type="string" name="guild_name"/>
+		<arg type="int32" name="scene_id"/>
+		<arg type="int32" name="pos_x"/>
+		<arg type="int32" name="pos_y"/>
+		<arg type="int32" name="pos_z"/>
+	</Game_Player_Info>
+
+	<Bag_Info>
+		<head table_name="bag" index_name="role_id"/>
+		<arg type="int64" name="role_id"/>
+		<arg type="int32" name="copper"/>
+		<arg type="int32" name="gold"/>
+		<map type="Item_Detail" key_type="int32" key_name="item_id" name="item_map"/>
+	</Bag_Info>
+	
+	<Mail_Info>
+		<head table_name="mail" index_name="role_id"/>
+		<arg type="int64" name="role_id"/>
+		<arg type="int32" name="total_count"/>
+		<map type="Mail_Detail" key_type="int32" key_name="mail_id" name="mail_map"/>
+	</Mail_Info>
+	
+	<Master_Data type="mem_only">
+		<!--master数据在此定义-->
+		<struct type="Guild_Info" name="guild_info"/>
+		<struct type="Rank_Info" name="rank_info"/>
+		<struct type="Offline_Info" name="offline_info"/>
+	</Master_Data>
+	
+	<Guild_Info>
+		<head table_name="guild" index_name="guild_id" msg_id="150103"/>
+		<arg type="int64" name="guild_id"/>
+		<arg type="string" name="guild_name"/>
+		<arg type="int64" name="chief_id"/>
+		<arg type="int32" name="create_time"/>
+		<vector type="Guild_Member_Detail" name="member_list"/>
+		<vector type="Guild_Member_Detail" name="app_list"/>
+	</Guild_Info>
+
+	<Rank_Info>
+		<head table_name="rank" index_name="rank_type" msg_id="150104"/>
+		<arg type="int64" name="rank_type"/>
+		<arg type="int32" name="min_value"/>
+		<arg type="int64" name="min_role_id"/>
+		<map type="Rank_Member_Detail" key_type="int64" key_name="role_id" name="member_map"/>
+	</Rank_Info>
+	
+	<Offline_Info>
+		<head table_name="offline" index_name="role_id" msg_id="150105"/>
+		<arg type="int64" name="role_id"/>
+		<arg type="int64" name="guild_id"/>
+		<arg type="string" name="guild_name"/>
+	</Offline_Info>
+
+</root>
